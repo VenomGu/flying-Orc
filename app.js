@@ -95,33 +95,40 @@ function gameOver() {
     ground.classList.add('ground');
     ground.classList.remove('ground-moving');
 
+    // Esconder o pássaro
     const birdElement = document.querySelector('.bird');
     const birdLeft = birdElement.style.left;
     const birdBottom = birdElement.style.bottom;
 
-    birdElement.style.display = 'none';
+    birdElement.style.display = 'none'; // Esconde o pássaro
 
+    // Criar o GIF de explosão
     const explosionGif = document.createElement('img');
-    explosionGif.src = 'images/explosion.gif';  
+    explosionGif.src = 'images/explosion.gif';  // Caminho para o GIF de explosão
     explosionGif.alt = 'Explosion';
-    explosionGif.classList.add('explosion');  
+    explosionGif.classList.add('explosion');  // Adiciona a classe para estilizar
 
+    // Adicionar o GIF de explosão na mesma posição onde o pássaro estava
     const skyElement = document.querySelector('.sky');
     explosionGif.style.position = 'absolute';
-    explosionGif.style.left = birdLeft;  
-    explosionGif.style.bottom = birdBottom;  
+    explosionGif.style.left = birdLeft;  // Mesma posição de left do pássaro
+    explosionGif.style.bottom = birdBottom;  // Mesma posição de bottom do pássaro
 
-    skyElement.appendChild(explosionGif);  
+    skyElement.appendChild(explosionGif);  // Coloca o GIF dentro da .sky
 
+    // Tocar o som de explosão
     const explosionSound = new Audio('sounds/explosion.mp3');
     explosionSound.play();
 
+    // Remover a explosão após 3 segundos para garantir tempo de visualização
     setTimeout(() => {
-        explosionGif.remove();
-    }, 2000);  
+        explosionGif.remove(); // Remove a explosão após 3 segundos
+    }, 3000);  // Ajuste o tempo para garantir que a explosão seja visível
 
+    // Redirecionar após 3 segundos (para dar tempo ao efeito de explosão)
     setTimeout(() => {
-        window.location.href = 'deathScreen.html';
-    }, 2000);  
+        window.location.href = 'deathScreen.html'; // Redireciona após o tempo da explosão
+    }, 3000);  // Ajuste o tempo de redirecionamento
 }
+
 })
