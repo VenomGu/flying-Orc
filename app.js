@@ -8,26 +8,25 @@ document.addEventListener('DOMContentLoaded', () => {
     let gravity = 3;
     let isGameOver = false;
     let gap = 550;
-    let updateCounter = document.getElementById('count');
-    let counter = 0;
     let points = 0;
+    let speed = 10;
 
     function startGame() {
         birdBottom -= gravity;
         bird.style.bottom = birdBottom + 'px';
         bird.style.left = birdLeft + 'px';
+        increaseDificulty();
     }
 
     let gameTimerId = setInterval(startGame, 20);
 
-    // Function to control the bird jump
 function jump() {
     if (birdBottom < 500) birdBottom += 50;
     bird.style.bottom = birdBottom + 'px';
 
     points += 25;
     document.getElementById('points').innerHTML = points;
-    document.getElementById("points").style.fontSize = "50px"; // Fonte padrão
+    document.getElementById("points").style.fontSize = "50px"; 
 
     if (points == 1000 ) {
         triggerFontEffect("red", 70, 'sounds/get-tem.mp3');
@@ -49,29 +48,35 @@ function jump() {
         triggerFontEffect("purple", 110, 'sounds/get-tem.mp3');
     }
 }
+function increaseDificulty() {
+    if (points == 1000) {
+        speed = 15;
+    } else if (points == 2000) {
+        speed = 20;
+    } else if (points == 3000) {
+        speed = 25;
+    } else if (points == 4000) {
+        speed = 30;
+    } else if (points == 5000) {
+        speed = 35;
+    }
+}
 
-// Função para aplicar o efeito de aumentar fonte e cor, além de adicionar som
 function triggerFontEffect(color, size, soundUrl) {
-    // Aumenta o tamanho da fonte e muda a cor por 1 segundo
     let pointsElement = document.getElementById("points");
     
-    // Audio de efeito especial
     const specialSound = new Audio(soundUrl);
     specialSound.play();
 
-    // Modificando o estilo da fonte
     pointsElement.style.fontSize = size + "px";
     pointsElement.style.color = color;
 
-    // Volta ao tamanho original após 1 segundo
     setTimeout(() => {
-        pointsElement.style.fontSize = "50px"; // Retorna ao tamanho original
-        pointsElement.style.color = "red";  // Retorna à cor original
-    }, 1000);  // 1000ms = 1 segundo
+        pointsElement.style.fontSize = "50px"; 
+        pointsElement.style.color = "red";  
+    }, 1000);  
 }
 
-
-    // Listen for keyboard input (Spacebar to jump)
     document.addEventListener('keyup', control);
 
     function control(e) {
@@ -80,9 +85,8 @@ function triggerFontEffect(color, size, soundUrl) {
         }
     }
 
-    // Add touch event listener for tap to jump
     document.addEventListener('touchstart', function() {
-        jump(); // Trigger jump on touch
+        jump(); 
     });
 
     function generateObstacle() {
@@ -103,14 +107,10 @@ function triggerFontEffect(color, size, soundUrl) {
         topObstacle.style.bottom = obstacleBottom + gap + 'px';
 
         function moveObstacle() {
-            obstacleLeft -= 10;
+            obstacleLeft -= speed;
             
             obstacle.style.left = obstacleLeft + 'px';
             topObstacle.style.left = obstacleLeft + 'px';
-            console.log("obstacleLeft",obstacleLeft);
-            console.log("obstacleBottom",obstacleBottom);
-            console.log("birdLeft",birdLeft);
-            console.log("birdBottom",birdBottom);
 
             if (obstacleLeft === -100) {
                 console.log('Obstacle removed');
@@ -120,7 +120,7 @@ function triggerFontEffect(color, size, soundUrl) {
             }
             if (
                 obstacleLeft > 200 && obstacleLeft < 280 && birdLeft === 220 &&
-                (birdBottom < obstacleBottom + 153 || birdBottom > obstacleBottom + gap - 200) ||
+                (birdBottom < obstacleBottom + 153 || birdBottom > obstacleBottom + gap - 300) ||
                 birdBottom === 0
                 
             ) {

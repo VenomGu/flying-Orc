@@ -4,7 +4,13 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  zoom: 1;
+  background-size: cover;
+}
+
+@media (max-width: 600px) {
+  body {
+    zoom: 2;
+  }
 }
 
 .game-container {
@@ -172,4 +178,10 @@ form {
   color: #fffb0c;
   font-size: 24px;
   margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .body {
+    zoom: 2;
+  }
 }
