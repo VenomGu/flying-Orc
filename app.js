@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let gap = 550;
     let points = 0;
     let speed = 10;
+    let finalScore = 0;
 
     function startGame() {
         birdBottom -= gravity;
@@ -25,7 +26,7 @@ function jump() {
     bird.style.bottom = birdBottom + 'px';
 
     points += 25;
-    document.getElementById('points').innerHTML = points;
+    document.getElementById('points').innerHTML = "Points: " + points;
     document.getElementById("points").style.fontSize = "50px"; 
 
     if (points == 1000 ) {
@@ -170,6 +171,8 @@ function triggerFontEffect(color, size, soundUrl) {
 
         setTimeout(() => {
             window.location.href = 'deathScreen.html';
-        }, 20000000);
+        }, 2000);
     }
+    
+
 });
